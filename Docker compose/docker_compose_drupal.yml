@@ -1,0 +1,21 @@
+version: '3'
+
+services: 
+  postgres:
+    image: postgres:16
+    container_name: postgres_container
+    env_file: .env
+    volumes:
+     - sql_data_postgres:/var/lib/postgresql/data  
+  drupal:
+   image: drupal:10-apache
+   container_name: drupal_container
+   ports:
+    - "8080:80"
+   volumes:
+    - drupal-data:/var/www/html
+   depends_on:
+    - postgres  
+volumes:
+ sql_data_postgres:
+ drupal-data:
